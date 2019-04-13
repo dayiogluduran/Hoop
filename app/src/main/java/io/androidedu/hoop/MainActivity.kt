@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction().add(R.id.main_fragment, CameraFragment()).commit()
+        changeFragment(CameraFragment())
 
         calls_button.setOnClickListener(this)
         status_button.setOnClickListener(this)
@@ -25,25 +26,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(item: View?) {
-
-        supportFragmentManager.beginTransaction().apply {
-            when (item?.id) {
-                R.id.calls_button -> {
-                    replace(R.id.main_fragment, CallsFragment())
-                }
-                R.id.status_button -> {
-                    replace(R.id.main_fragment, StatusFragment())
-                }
-                R.id.chats_button -> {
-                    replace(R.id.main_fragment, ChatsFragment())
-                }
-                R.id.camera_image -> {
-                    replace(R.id.main_fragment, CameraFragment())
-                }
-                else -> {
-                }
+        when (item?.id) {
+            R.id.calls_button -> {
+                changeFragment(CallsFragment())
             }
-        }.commit()
+            R.id.status_button -> {
+                changeFragment(StatusFragment())
+            }
+            R.id.chats_button -> {
+                changeFragment(ChatsFragment())
+            }
+            R.id.camera_image -> {
+                changeFragment(CameraFragment())
+            }
+        }
+    }
+
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, fragment)
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
