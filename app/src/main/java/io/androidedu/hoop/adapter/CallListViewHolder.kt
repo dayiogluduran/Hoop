@@ -6,16 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.androidedu.hoop.R
-import io.androidedu.hoop.model.CallModel
+import io.androidedu.hoop.entity.CallEntity
 
-class CallListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-                R.layout.adapter_item_call_list,
-                parent,
-                false
-        )
-) {
-
+class CallListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_item_call_list, parent, false)) {
 
     private val imgProfile: ImageView
     private val txtUserName: TextView
@@ -32,15 +25,15 @@ class CallListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         imgCallIcon = itemView.findViewById<ImageView>(R.id.imgCalllIcon)
     }
 
-    fun bind(callModel: CallModel, onItemClickListener: (callModel: CallModel) -> Unit) {
+    fun bind(callEntity: CallEntity, onItemClickListener: (callEntity: CallEntity) -> Unit) {
 
-        imgProfile.setBackgroundResource(callModel.profilePhoto)
-        txtUserName.text = callModel.userName
-        txtDate.text = callModel.date
-        txtTime.text = callModel.time
-        imgCallIcon.setBackgroundResource(callModel.callIcon)
+        imgProfile.setBackgroundResource(callEntity.profilePhoto)
+        txtUserName.text = callEntity.userName
+        txtDate.text = callEntity.callDate
+        txtTime.text = callEntity.callTime
+        imgCallIcon.setBackgroundResource(callEntity.callIcon)
 
-        itemView.setOnClickListener { onItemClickListener(callModel) }
+        itemView.setOnClickListener { onItemClickListener(callEntity) }
     }
 
 }
